@@ -1,0 +1,212 @@
+﻿@model List<Практика.Models.Ingredients>
+@{
+    var productsList = ViewBag.Products as List<SelectListItem>;
+    var materialsList = ViewBag.Materials as List<SelectListItem>;
+    var editIngredient = ViewBag.EditInfo as Практика.Models.Ingredients;
+    var user = Context.Session.GetInt32("Role");
+}
+<div class="conteiner">
+    <h1>Ингредиенты</h1>
+
+    <form method="get" asp-action="Index">
+        <select name="productsId" class="form_sel" onchange="this.form.submit()">
+            <option>Выберите продукт</option>
+            @foreach (var item in productsList)
+            {
+                if (item.Value == Context.Request.Query["productsId"])
+                {
+                    <option value="@item.Value" selected>@item.Text</option>
+                }
+                else
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            }
+        </select>
+        <div class="action-bc">
+            <a href="@Url.Action("Index", "Home")" class="btn_bc">Вернутся</a>
+        </div>
+    </form>
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div style="padding: 12px; background-color: red; color:white; width: 35%; border:none; border-radius: 5px;">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    <table class="data_table">
+        <thead>
+            <tr>
+                @if (ViewBag.ProductID == null)
+                {
+                    <th>Продукт</th>
+                }
+                <th>Сырье</th>
+                <th>Количество</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    @if (ViewBag.ProductID == null)
+                    {
+                        <td>@product.Product</td>
+                    }
+                    <td>@product.Materials</td>
+                    <td>@product.Count</td>
+                    <td>
+                        <div class="action">
+                            @if (user == 3 || user == 2)
+                            {
+                                <form action="/Ingredients/Delete/@product.Id" method="post" onsubmit="return confirm('Вы уверены что хотите удалить?')">
+                                    <button style="border:none; border-radius:5px; padding:12px; background-color:red; color:white;">Удалить</button>
+                                </form>
+                                <a href="@Url.Action("Index", new{productsId = Context.Request.Query["productsId"], editId = product.Id})" style="border:none; border-radius:5px; padding:12px; background-color:green; color:white; text-decoration:none;">Редоктировать</a>
+                            }
+                            else
+                            {
+                                <form>
+                                    <button type="button" class="btn_none" disabled>Удалить</button>
+                                </form>
+                                <a href="javascript:void(0)" class="btn_none">Редоктировать</a>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="form_add">
+    <h2>@(editIngredient != null ? "Редоктирование" : "Добавление")</h2>
+    <form method="post" asp-action="@(editIngredient != null ? "Edit": "Insert")">
+        <input type="hidden" name="ProductId" value="@Context.Request.Query["productsId"]" />
+        @if (editIngredient != null)
+        {
+            <input type="hidden" name="Id" value="@editIngredient.Id" />
+        }
+        <label>Сырье</label>
+        <select name="MaterialsId" style="padding: 12px; border:none; font-size: 17px; border-radius: 5px; margin-right: 10px;">
+            <option>Выберите сырье</option>
+            @foreach (var item in materialsList)
+            {
+                if (editIngredient != null)
+                {
+                    @if (item.Value == editIngredient.MaterialsId.ToString())
+                    {
+                        <option value="@item.Value" selected="selected">@item.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                }
+                else
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+
+            }
+        </select>
+        <label>Количество</label>
+        <input type="text" name="Count" value="@(editIngredient != null ? editIngredient.Count : "")" style="padding: 12px; border:none; font-size: 17px; border-radius: 5px; margin-right: 10px;" required />
+        <div>
+            @if (user == 3 || user == 2)
+            {
+                <button type="submit" style="padding: 12px; border:none; margin-top:15px; font-size: 17px; border-radius: 5px; background-color:white;color:black;">@(editIngredient != null ? "Обновить" : "Добавить")</button>
+
+            }
+            else
+            {
+                <button type="button" class="btn_none" disabled>Добавить</button>
+
+            }
+        </div>
+    </form>
+</div>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: burlywood;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        width: 60%;
+        margin: 50px auto;
+        background-color: bisque;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        text-align: center;
+        padding: 15px;
+    }
+
+    .data_table {
+        width: 100%;
+        margin: 15px auto;
+        text-align: center;
+    }
+
+        .data_table td, .data_table th {
+            padding: 12px;
+            border: 0.5px solid gray;
+            font-size: 17px;
+        }
+
+        .data_table th {
+            background-color: cornsilk;
+        }
+
+    .form_sel {
+        border: none;
+        padding: 12px;
+        font-size: 18px;
+        font-family: 'Baskerville Old Face';
+        border-radius: 5px;
+        margin-top: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .action {
+        display: flex;
+        justify-content: safe center;
+        gap: 10px;
+    }
+
+    .action-bc {
+        padding: 12px;
+        background-color: white;
+        border-radius: 5px;
+        width: 25%;
+        margin: 10px auto;
+        font-family: 'Baskerville Old Face';
+        font-size: 17px;
+    }
+
+    .btn_bc {
+        color: black;
+        text-decoration: none;
+    }
+
+    .form_add {
+        width: 60%;
+        margin: 20px auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        background-color: bisque;
+        text-align: center;
+    }
+
+    .btn_none {
+        padding: 12px;
+        text-decoration: none;
+        border-radius: 5px;
+        background-color: gray;
+        color: white;
+        border: none;
+        cursor: no-drop;
+        text-decoration: none;
+    }
+</style>

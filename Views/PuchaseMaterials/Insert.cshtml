@@ -1,0 +1,94 @@
+﻿@model Практика.Models.PuchaseMaterials
+@{
+    var materialsList = ViewBag.Materials as List<SelectListItem>;
+    var employeesList = ViewBag.Employees as List<SelectListItem>;
+    var dateValue = Model.Date == default ? DateTime.Now.ToString("yyyy-MM-dd") : Model.Date.ToString("yyyy-MM-dd");
+
+}
+<div class="conteiner">
+    <h1>Покупка сырья</h1>
+    @if (TempData["ErrorMessage"] != null){
+        <div style="color:red;">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <form method="post" asp-action="Insert">
+        <label>Сырье</label>
+        <select asp-for="MaterialId">
+            <option>Выберите сырье</option>
+            @foreach (var material in materialsList)
+            {
+                <option value="@material.Value">@material.Text</option>
+            }
+        </select>
+        <label>Количество</label>
+        <input type="text" asp-for="Count"  required />
+        <label>Цена</label>
+        <input type="text" asp-for="Price"  required />
+        <label>Дата</label>
+        <input type="date" asp-for="Date" value="@dateValue" required />
+        <label>Сотрудник</label>
+        <select asp-for="EmployeeId">
+            <option>Выберите сотрудника</option>
+            @foreach (var employee in employeesList)
+            {
+                <option value="@employee.Value">@employee.Text</option>
+            }
+        </select>
+        <div class="action">
+            <button type="submit" class="btn_add">Добавить</button>
+            <a href="@Url.Action("Index","PuchaseMaterials")" class="btn_back">Вернуться</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    body {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        background-color: burlywood;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        padding: 20px;
+        text-align: center;
+        width: 60%;
+        margin: 60px auto;
+        background-color: bisque;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 10px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin: 15px auto;
+    }
+    select, input{
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    label{
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    .btn_add{
+        padding: 12px;
+        border-radius:5px;
+        border: none;
+    }
+
+    .btn_back {
+        padding: 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: black;
+        background-color: lightgray;   
+    }
+</style>

@@ -1,0 +1,125 @@
+﻿@model List<BudgetModel>
+@{
+    var edit = ViewBag.Edit as Практика.Models.BudgetModel;
+    var user = Context.Session.GetInt32("Role");
+}
+<div class="conteiner">
+    <h1>Бюджет</h1>
+    <div class="action">
+        <a href="/Home/Index" class="btn_back">Вернуться</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Бюджет</th>
+                <th>Процент</th>
+                <th>Бонус</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Budget</td>
+                    <td>@item.Percent</td>
+                    <td>@item.Bonus</td>
+                    <td>
+                        @if (user == 3 || user == 12)
+                        {
+
+                            <form method="get" action="/Budget/Edit/@item.Id">
+                                <button class="btn_edit">Редоктировать</button>
+                            </form>
+                        }
+                        else{
+                            <form>
+                                <button type="button" class="btn_none" disabled>Редоктировать</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    body {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background-color: aliceblue;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        width: 60%;
+        margin: 50px auto;
+        padding: 15px;
+        background-color: ghostwhite;
+        border-radius: 12px;
+        box-shadow: 0 6px 8px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+        margin: 10px auto;
+    }
+
+        table th, table td {
+            padding: 12px;
+            border: 1px solid gray;
+        }
+
+        table th {
+            background-color: whitesmoke;
+        }
+
+    .action {
+        text-align: left;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .btn_back {
+        padding: 12px;
+        text-decoration: none;
+        border-radius: 5px;
+        color: black;
+        background-color: #F0F0F0;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn_back:hover {
+            transform: scale(1.03);
+            background-color: green;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+    .btn_edit {
+        padding: 12px;
+        text-decoration: none;
+        border-radius: 5px;
+        background-color: green;
+        color: white;
+        transition: all 0.3s ease-in-out;
+        border: none;
+    }
+
+        .btn_edit:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+    .btn_none {
+        padding: 12px;
+        text-decoration: none;
+        border-radius: 5px;
+        background-color: gray;
+        color: white;
+        border: none;
+        cursor: no-drop;
+    }
+</style>

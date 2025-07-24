@@ -1,0 +1,78 @@
+﻿@model Product
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление продукта</title>
+</head>
+<body>
+    <div class="conteiner">
+        <h1>Редоктирование</h1>
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Id" />
+             
+            <label>Название продукта</label>
+            <input type="text" asp-for="Name" />
+            <label>Единица измерения</label>
+            <select asp-for="UnitId" asp-items="ViewBag.Units">
+        </select>
+        <label>Количество</label>
+        <input type="number" asp-for="Count" />
+        <label>Цена</label>
+        <input type="text" asp-for="Price" />
+        <button type="submit" class="btn">Сохранить</button>
+        </form>
+    <a href="@Url.Action("Index", "Product")" class="btn_secondary">Вернуться</a>
+    </div>
+
+</body>
+</html>
+<style>
+    body{
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+        background-color: background-color: #f4f7f6;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        width: 50%;
+        padding: 10px;
+        margin: 0 auto;
+        background-color:aliceblue;
+        text-align:center;
+    }
+    form{
+        display:flex;
+        flex-direction:column;
+        align-items: center;
+    }
+
+    label, select, input {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    label {
+        text-align: left;
+    }
+    .btn{
+        background-color:forestgreen;
+        color:white;
+        padding: 10px 15px;
+        border: none;
+        margin-bottom:20px;
+    }
+
+    .btn_secondary{
+        background-color:deepskyblue;
+        color:#fff;
+        padding: 12px 15px;
+        text-decoration:none;
+        border: none;
+        border-radius: 5px;
+    }
+</style>

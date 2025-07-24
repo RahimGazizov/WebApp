@@ -1,0 +1,116 @@
+﻿@model PayCredit
+
+<div class="conteiner">
+    <h1>Оплата за кредит</h1>
+    @if (TempData["Error"] != null)
+    {
+        <div>
+            @TempData["Error"]
+        </div>
+    }
+    <table>
+        <thead>
+            <tr>
+                <td>Дата</td>
+                <td>Часть кредита</td>
+                <td>Процент</td>
+                <td>Общая сумма</td>
+                <td>Остаток кредита</td>
+                <td>Просрочено</td>
+                <td>Пени</td>
+                <td>Итог</td>
+                <td>Кредит</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Date.ToString("yyyy-MM-dd")</td>
+                <td>@Model.Pay</td>
+                <td>@Model.Percent</td>
+                <td>@Model.Total_Summ</td>
+                <td>@Model.Summa</td>
+                <td>@Model.Expired</td>
+                <td>@Model.Fine</td>
+                <td>@Model.Result</td>
+                <td>@Model.Credit</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form method="post" action="SavePayCredit">
+        <input type="hidden" name="date" value="@Model.Date.ToString("yyyy-MM-dd")">
+        <input type="hidden" name="pay" value="@Model.Pay">
+        <input type="hidden" name="percent" value="@Model.Percent">
+        <input type="hidden" name="total_Summ" value="@Model.Total_Summ">
+        <input type="hidden" name="summa" value="@Model.Summa">
+        <input type="hidden" name="expired" value="@Model.Expired">
+        <input type="hidden" name="fine" value="@Model.Fine">
+        <input type="hidden" name="result" value="@Model.Result">
+        <input type="hidden" name="creditid" value="@Model.CreditId">
+        <div class="action">
+            <button type="submit" class="btn_add">Оплатить</button>
+            <a href="/PayCredit/Insert" class="btn_back">Вернуться</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    body {
+        font-family: Consolas;
+        background-color: aliceblue;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        width: 80%;
+        margin: 70px auto;
+        padding: 15px;
+        background-color: whitesmoke;
+        border-radius: 15px;
+        box-shadow: 0 8px 10px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+        margin: 15px auto;
+    }
+
+        table th, table td {
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid gray;
+        }
+
+        table th {
+            background-color: lightgray;
+        }
+
+    .btn_add {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn_add:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+    .btn_back {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        transition: all 0.2s ease-in-out;
+        text-decoration: none;
+        color:black;
+        background-color: #F0F0F0;
+    }
+
+        .btn_back:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+</style>

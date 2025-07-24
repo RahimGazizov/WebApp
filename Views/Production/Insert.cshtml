@@ -1,0 +1,121 @@
+﻿@model Production
+@{
+    var productList = ViewBag.Products as List<SelectListItem>;
+    var employeeList = ViewBag.Employees as List<SelectListItem>;
+    var dateValue = (Model != null && Model.Date != default)
+     ? Model.Date.ToString("yyyy-MM-dd")
+     : DateTime.Now.ToString("yyyy-MM-dd");
+
+}
+<div class="conteiner">
+    <h1>Производство нового продукта</h1>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div style="color: red;font-size:18px;">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+    <form method="post" asp-action="Insert">
+        <label>Продукт</label>
+        <select asp-for="ProductId">
+            <option>Выберите продукт</option>
+            @foreach (var item in productList)
+            {
+                if (item.Value == Model?.ProductId.ToString())
+                {
+                    <option value="@item.Value" selected>
+                        @item.Text
+                    </option>
+                }
+                else
+                {
+                    <option value="@item.Value">
+                        @item.Text
+                    </option>
+
+                }
+            }
+        </select>
+        <label>Количество</label>
+        <input type="text" asp-for="Count" value="0" required />
+        <label>Дата</label>
+        <input type="date" asp-for="Date" value="@dateValue" required />
+        <label>Сотрудник</label>
+        <select asp-for="EmployeeId">
+            <option>Выберите сотрудника</option>
+            @foreach (var item in employeeList)
+            {
+                if (item.Value == Model?.EmployeeId.ToString())
+                {
+                    <option value="@item.Value" selected>@item.Text</option>
+                }
+                else
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            }
+        </select>
+        <div class="action">
+            <button type="submit" class="btn_add">Добавить</button>
+            <a href="/Production/Index" class="btn_back">Вернуться</a>
+        </div>
+    </form>
+</div>
+<style>
+    body {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        background-color: bisque;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        width: 80%;
+        margin: 80px auto;
+        padding: 20px;
+        text-align: center;
+        background-color: burlywood;
+        box-shadow: 0 8px 12px rgba(0,0,0,0.1);
+        border-radius: 12px;
+    }
+
+    form {
+        width: 100%;
+        margin: 15px auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    label, input, select {
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+
+    input, select {
+        padding: 12px;
+        border-radius: 5px;
+        border: none;
+        width: 40%;
+        margin: 0 auto;
+    }
+    .action{
+        display:flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 15px;
+    }
+    .btn_add{
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+    }
+    .btn_back{
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        color: black;
+        text-decoration: none;
+    }
+</style>

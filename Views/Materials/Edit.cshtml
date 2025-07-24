@@ -1,0 +1,80 @@
+﻿@model Materials
+
+<div class="conteiner">
+    <h1>Редоктирование сырья</h1>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <label>Название сырья</label>
+        <input type="text" asp-for="Name" />
+        <label>Единица измерения</label>
+        <select asp-for="UnitId" asp-items="ViewBag.Units"></select>
+        <label>Количество</label>
+        <input type="text" asp-for="Count" />
+        <label>Сумма</label>
+        <input type="text" asp-for="Cost" />
+        <div class="action">
+            <button type="submit" class="btn_ad">Сохранить</button>
+            <a href="@Url.Action("Index","Materials")" class="btn_bc">Вернуться</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    body{
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: burlywood;
+        margin: 0px;
+        padding: 0px;
+    }
+    .conteiner{
+        width: 60%;
+        margin: 50px auto;
+        background-color: antiquewhite;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgb(0,0,0,0.1);
+        text-align:center;
+    }
+    form{
+        display:flex;
+        flex-direction: column;
+        width: 45%;
+        margin: 0 auto;
+    }
+    input,label,select{
+        padding: 10px;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+    input,select{
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 5px;
+        border: none;
+    }
+    .action{
+        display:flex;
+        justify-content: safe center;
+        gap: 10px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .btn_ad{
+        background-color: greenyellow;
+        color:gray;
+        padding: 10px;
+        border:none;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .btn_bc {
+        background-color: deepskyblue;
+        color: black;
+        padding: 10px;
+        border: none;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+</style>

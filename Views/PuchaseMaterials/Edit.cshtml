@@ -1,0 +1,84 @@
+﻿@model Практика.Models.PuchaseMaterials
+@{
+    var materials = ViewBag.Materials as List<SelectListItem>;
+    var employees = ViewBag.Employees as List<SelectListItem>;
+}
+<div class="conteiner">
+    <h1 style="text-align:center;">Редоктирование</h1>
+   <form method="post" action="Edit">
+       <input type="hidden" asp-for="Id" />
+       <label>Материал</label>
+       <select asp-for="MaterialId" asp-items="@materials"></select>
+       <label>Количество</label>
+       <input type="text" asp-for="Count" />
+       <label>Цена</label>
+       <input type="text" asp-for="Price" />
+       <label>Дата</label>
+       <input type="date" asp-for="Date" />
+        <label>Сотрудник</label>
+        <select asp-for="EmployeeId" asp-items="@employees"></select>
+        <div class="action">
+            <button type="submit" class="btn_add">Обновить</button>
+            <a href="@Url.Action("Index","PuchaseMaterials")" class="btn_back">Вернуться</a>
+        </div>
+   </form>
+</div>
+<style>
+    body{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        background-color:beige;
+        margin: 0;
+        padding: 0;
+    }
+    .conteiner{
+        width: 60%;
+        margin: 60px auto;
+        background-color: antiquewhite;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 12px;
+        width: 50%;
+        margin: 15px auto;
+    }
+    select, input{
+        padding: 12px;
+        border:none;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    label{
+        margin-bottom: 10px;
+        font-size: 18px;
+        text-align: left;
+    }
+    .action{
+        display: flex;
+        justify-content: safe center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .btn_add{
+        padding: 12px;
+        font-size: 16px;
+        border:none;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .btn_back{
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-decoration: none;
+        color: black;
+        background-color: #f0f0f0;
+    }
+</style>

@@ -1,0 +1,113 @@
+﻿@model SaleProducts
+@{
+    var productList = ViewBag.Products as List<SelectListItem>;
+    var employeeList = ViewBag.Employees as List<SelectListItem>;
+    var dateValue = (Model != null && Model.Date != default) ? Model.Date.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd");
+}
+<div class="conteiner">
+    <h1>Редоктирование продажи продукции</h1>
+    @if(TempData["Error"] != null){
+        <div style="font-size: 18px; background-color: red; color:white; display: inline-block;">
+            @TempData["Error"]
+        </div>
+    }
+    <form method="post" asp-action="Edit">
+        <label>Продукт</label>
+        <select asp-for="ProductId">
+            @foreach (var item in productList)
+            {
+                if (item.Value == Model?.ProductId.ToString())
+                {
+                    <option value="@item.Value" selected>@item.Text</option>
+                }
+                else
+                {
+                    <option value="@item.Value">@item.Text</option>
+
+                }
+            }
+        </select>
+        <label>Количество</label>
+        <input type="number" asp-for="Count" value="@(Model?.Count ?? 0)" required />
+        <label>Дата</label>
+        <input type="date" asp-for="Date" value="@dateValue" required />
+        <label>Сотрудник</label>
+        <select asp-for="EmployeeId">
+            @foreach (var item in employeeList)
+            {
+                if (item.Value == Model?.EmployeeId.ToString())
+                {
+                    <option value="@item.Value" selected>@item.Text</option>
+                }
+                else
+                {
+                    <option value="@item.Value">@item.Text</option>
+
+                }
+            }
+        </select>
+        <div class="action">
+            <button type="submit" class="btn_edit">Обновить</button>
+            <a href="/SaleProducts/Index" class="btn_back">Вернуться</a>
+        </div>
+    </form>
+</div>
+<style>
+    body {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        background-color: aliceblue;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        width: 80%;
+        margin: 80px auto;
+        background-color: floralwhite;
+        padding: 15px;
+        border-radius: 15px;
+        box-shadow: 0 8px 12px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    form {
+        width: 50%;
+        margin: 15px auto;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    label, input, select {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    input, select {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+    }
+    .action{
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .btn_edit{
+        padding: 12px;
+        background-color:antiquewhite;
+        font-size: 16px;
+        border:none;
+        border-radius: 5px;
+    }
+    .btn_back{
+        padding: 12px;
+        background-color: antiquewhite;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        color: black;
+    }
+</style>

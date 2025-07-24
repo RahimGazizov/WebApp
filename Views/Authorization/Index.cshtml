@@ -1,0 +1,73 @@
+﻿@model Authorization
+<div class="conteiner">
+    <h1>Авторизация</h1>
+    @if (TempData["Error"] != null)
+    {
+        <div style="color:red;font-size:18px;">
+            @TempData["Error"]
+        </div>
+    }
+    <form method="post" asp-action="Index">
+        <label>Логин</label>
+        <input type="text" asp-for="Login" required />
+        <label>Пароль</label>
+        <input type="text" asp-for="Password" required />
+        <button type="submit" class="btn_entrance">Войти</button>
+    </form>
+</div>
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: aliceblue;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        width: 40%;
+        margin: 100px auto;
+        background-color: ghostwhite;
+        box-shadow: 0 6px 8px rgba(0,0,0,0.1);
+        padding: 15px;
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        margin: 10px auto;
+    }
+
+    input, label {
+        margin-bottom: 10px;
+    }
+
+    input {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    label {
+        text-align: left;
+    }
+
+    .btn_entrance {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        width: 30%;
+        margin: 5px auto;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn_entrance:hover {
+            transform: scale(1.03);
+            background-color: green;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+</style>

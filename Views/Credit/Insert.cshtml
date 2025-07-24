@@ -1,0 +1,102 @@
+﻿@model Credit
+@{
+    var dateValue = (Model != null && Model.Date != default) ? Model.Date.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd");
+}
+<div class="conteiner">
+    <h1>Добавление кредита</h1>
+    <form method="post" action="/Credit/Insert">
+        <label>Сумма кредита</label>
+        <input type="text" name="Summa" required />
+        <label>Срок</label>
+        <input type="number" name="Year" required />
+        <label>Процент</label>
+        <input type="text" name="Precent" required />
+        <label>Пения</label>
+        <input type="text" name="Fine" required />
+        <label>Дата</label>
+        <input type="date" name="Date" value="@dateValue" required />
+        <label>Описание</label>
+        <input type="text" name="Description" required />
+        <div class="action">
+            <button type="submit" class="btn_add">Добавить</button>
+            <a href="/Credit/Index" class="btn">Вернуться</a>
+        </div>
+    </form>
+</div>
+<style>
+
+    body {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background-color: aliceblue;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        width: 60%;
+        margin: 80px auto;
+        padding: 15px;
+        background-color: whitesmoke;
+        border-radius: 15px;
+        box-shadow: 0 8px 10px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    form{
+        width: 60%;
+        margin: 15px auto;
+        display: flex;
+        flex-direction: column;
+
+    }
+    label, input{
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+    input{
+        border: none;
+        border-radius: 5px;
+        padding: 12px;
+    }
+    .action {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+
+    .btn {
+        padding: 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        background-color: beige;
+        color: black;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn {
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    .btn_add {
+        padding: 12px;
+        border-radius: 5px;
+        color: black;
+        cursor: pointer;
+        border: none;
+    }
+    .btn_add {
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn_add:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: green;
+            color: white;
+        }
+</style>

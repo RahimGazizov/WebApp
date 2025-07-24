@@ -1,0 +1,71 @@
+﻿@model Salary
+<div class="conteiner">
+    <h1>Редоктирование итоговой зарплаты</h1>
+    @if(Model != null)
+    {
+        <form method="post" asp-action="Edit">
+          
+            <label>Сотрудник</label>
+            <input type="text" value="@Model.Employee">
+            <label>Итоговая зарплата</label>
+            <input type="text" asp-for="TotalSalary" required />
+            <div class="action">
+                <button type="submit" class="btn_safe">Сохранить</button>
+                <a href="/Salary/Index" class="btn_back">Вернуться</a>
+            </div>
+            <input type="hidden" name="Id" value="@Model.Id">
+            <input type="hidden" name="Year" value="@Model.Year">
+            <input type="hidden" name="Month" value="@Model.Month">
+        </form>
+    }
+</div>
+<style>
+    body{
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: aliceblue;
+        margin: 0;
+        padding: 0;
+    }
+    .conteiner{
+        width: 60%;
+        margin: 80px auto;
+        background-color: whitesmoke;
+        border-radius: 15px;
+        box-shadow: 0 8px 10px rgba(0,0,0,0.1);
+        padding: 20px;
+        text-align: center;
+    }
+    form{
+        width: 100%;
+        margin: 10px auto;
+        display: flex;
+        flex-direction: column;
+    }
+    label, input{
+        margin-bottom: 10px;
+    }
+    input{
+        padding: 12px;
+        border:none;
+        border-radius: 5px;
+    }
+    .action{
+        display: flex;
+        justify-content: safe center;
+        gap: 10px;
+    }
+
+    .btn_safe {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+    }
+    .btn_back{
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        background-color:#F0F0F0;
+        color: black;
+        text-decoration: none;
+    }
+</style>

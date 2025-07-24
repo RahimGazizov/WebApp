@@ -1,0 +1,110 @@
+﻿@model Production
+@{
+    var productList = ViewBag.Products as List<SelectListItem>;
+    var employeeList = ViewBag.Employees as List<SelectListItem>;
+    var dateValue = (Model != null && Model.Date != default) ? Model.Date.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd");
+}
+<div class="conteiner">
+        <h1>Редоктирование производство</h1>
+    <form method="post" action="Edit">
+        @if(TempData["ErrorMessage"]!= null){
+            <div>
+                @TempData["ErrorMessage"]
+            </div>
+        }
+        <input type="hidden" asp-for="Id" />
+        <label>Продукт</label>
+        <select asp-for="ProductId">
+            @foreach (var item in productList)
+            {
+                if (item.Value == Model?.ProductId.ToString())
+                {
+                    <option value="@item.Value" selected>@item.Text</option>
+                }
+                else
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            }
+        </select>
+        <label>Количество</label>
+        <input type="text" asp-for="Count" required />
+        <label>Дата</label>
+        <input type="date" asp-for="Date" value="@dateValue" required />
+        <label>Сотрудник</label>
+        <select asp-for="EmployeeId">
+            @foreach (var item in employeeList)
+            {
+                if (item.Value == Model?.EmployeeId.ToString())
+                {
+                    <option value="@item.Value" selected>@item.Text</option>
+                }
+                else
+                {
+                    <option value="@item.Value">@item.Text</option>
+
+                }
+            }
+        </select>
+        <div class="action">
+        <button type="submit" class="btn_save">Сохранить</button>
+        <a href="/Production/Index" class="btn_back">Вернуться</a>
+        </div>
+    </form>
+</div>
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: aliceblue;
+        padding: 0;
+        margin: 0;
+    }
+    .conteiner{
+        width: 80%;
+        margin: 80px auto;
+        background-color: azure;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 8px 12px rgba(0,0,0,0.1);
+        text-align: center;
+        padding: 15px;
+    }
+    form{
+        width: 50%;
+        margin: 15px auto;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+    label, input,select{
+        margin-bottom: 15px;
+        font-size: 16px;
+    }
+    input,select{
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .action {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .btn_save {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .btn_back {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        background-color: #f0f0f0;
+        color: black;
+        text-decoration: none;
+    }
+</style>

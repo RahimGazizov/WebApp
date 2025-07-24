@@ -1,0 +1,84 @@
+﻿@model Materials
+
+<div class="conteiner">
+    <h1>Добавление нового сырья</h1>
+    <form asp-action="Insert" method="post">
+        <label>Название сырья</label>
+        <input type="text" asp-for="Name" required />
+        <label>Единица измерения</label>
+        <select asp-for="UnitId" asp-items="ViewBag.Units" required>
+        <option>Выберите единицу измерения</option>
+        </select>
+        <label>Количество</label>
+        <input type="text" asp-for="Count" value="0" required />
+        <label>Сумма</label>
+        <input type="text" asp-for="Cost" value="0" required />
+        <div class="action">
+        <button type="submit" class="btn_ad">Добавить</button>
+        <a href="@Url.Action("Index", "Materials")" class="btn_bac">Вернуться</a>
+        </div>
+    </form>
+
+</div>
+
+<style>
+    body{
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        background-color:burlywood;
+        margin:0;
+        padding:0;
+    }
+    .conteiner{
+        padding: 15px;
+        width: 60%;
+        margin: 50px auto;
+        text-align:center;
+        background-color:antiquewhite;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    form{
+        width: 45%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+
+    }
+    input,label,select{
+        width: 100%;
+        margin-bottom:10px;
+        padding: 10px;
+        font-size: 16px;
+    }
+    input,select{
+        border-radius: 5px;
+       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+       border:none;
+
+    }
+   
+    .action{
+        display: flex;
+        justify-content: safe center;
+        gap: 10px;
+        margin-top: 5px;
+    }
+
+    .btn_ad{
+        padding: 10px;
+        border-radius:5px;
+        background-color: lawngreen;
+        color: gray;
+        border:none;
+
+    }
+
+    .btn_bac {
+        padding: 10px;
+        border-radius: 5px;
+        background-color: lightyellow;
+        color: gray;
+        border: none;
+        text-decoration: none;
+    }
+</style>

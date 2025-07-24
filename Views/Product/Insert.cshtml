@@ -1,0 +1,96 @@
+﻿@model Практика.Models.Product
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление продукта</title>
+    <a href="@Url.Action("Index", "Production")" class="btn">Произвести продукт</a>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Добавление нового продукта</h1>
+        <form asp-action="Insert" method="post">
+            <label>Название продукта</label>
+            <input type="text" asp-for="Name" required >
+            <label>Единица измерения</label>
+            <select asp-for="UnitId" asp-items="ViewBag.Units" required >
+                <option>Выберите ед.измерения</option>
+                </select>
+            <label>Количество</label>
+            <input type="number" asp-for="Count" value="0" required />
+            <label>Цена</label>
+            <input type="text" asp-for="Count" value="0" required />
+            <button type="submit" class="btn">Добавить</button>
+        </form>
+        <a href="@Url.Action("Index", "Product")" class="btn_secondary">Вернуться</a>
+    </div>
+</body>
+</html>
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f4f7f6;
+        margin: 0;
+        padding: 0;
+    }
+    .container{
+        background-color:aliceblue;
+        width: 50%;
+        margin: 50px auto;
+        padding: 10px;
+        border-radius: 8px;
+        text-align:center;
+    }
+    h1{
+        font-size:25px;
+    }
+    form{
+        display: flex; /*делает строки в ряд*/
+        flex-direction: column; /*выранивает по столбу*/
+        align-items: flex-start;
+    }
+    label, select,input{
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        font-size: 16px;
+    }
+    label{
+        text-align: left;
+    }
+    .btn{
+        
+        background-color:green;
+        color: white;
+        padding: 10px 15px;
+        font-size:18px;
+        border:none;
+        boreder-radius: 5px;
+        display: inline-block; /* изменили с inline на inline-block */
+        margin-right: 10px;
+    }
+    .btn:hover{
+            background-color: green;
+            
+        }
+    .btn_secondary{
+        padding: 10px 15px;
+        background-color:darkblue;
+        color:white;
+        text-decoration: none;
+        float:left;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 10px;
+    }
+    .btn{
+        padding: 12px;
+        text-decoration: none;
+        background-color: azure;
+        border-radius: 7px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        color: black;
+    }
+</style>

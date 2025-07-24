@@ -1,0 +1,156 @@
+﻿@model List<Практика.Models.Materials>
+@{
+    var user = Context.Session.GetInt32("Role");
+}
+<div class="conteiner">
+    <h1>Сырье</h1>
+    <div class="btn_action">
+        @if (user == 3 || user == 2)
+        {
+            <a href="@Url.Action("Insert","Materials")" class="btn_ad">Добавить</a>
+        }
+        else
+        {
+            <a href="javascript:void(0)" class="btn_none">Добавить</a>
+        }
+        <a href="@Url.Action("Index","Home")" class="btn_bc">Вернуться</a>
+    </div>
+    <table class="table_data">
+        <thead>
+            <tr>
+                <th>Название материала</th>
+                <th>Единица иземерения</th>
+                <th>Количество</th>
+                <th>Цена</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var materials in Model)
+            {
+                <tr>
+                    <td>@materials.Name</td>
+                    <td>@materials.Unit</td>
+                    <td>@materials.Count</td>
+                    <td>@materials.Cost</td>
+                    <td>
+                        <div class="action">
+                            @if (user == 3 || user == 2)
+                            {
+
+                                <form method="post" action="/Materials/Delete/@materials.Id" onsubmit="return confirm('Вы уверены что хотите удалить?')">
+                                    <button type="submit" class="btn_del">Удалить</button>
+                                </form>
+                                <form method="get" action="/Materials/Edit/@materials.Id">
+                                    <button type="submit" class="btn_ed">Рекдоктировать</button>
+                                </form>
+                            }
+                            else
+                            {
+
+                                <form>
+                                    <button type="button" class="btn_none" disabled>Удалить</button>
+                                </form>
+                                <form>
+                                    <button type="button" class="btn_none" disabled>Рекдоктировать</button>
+                                </form>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #F9FAFB;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        width: 70%;
+        margin: 50px auto;
+        padding: 15px;
+        background-color: #FFFFFF;
+        border-radius: 10px; /* скругление углов */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .table_data {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+        .table_data th, .table_data td {
+            border: 1px solid #dddddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .table_data th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+        }
+
+    .action {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn_del {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .btn_ed {
+        background-color: lime;
+        color: black;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .btn_action {
+        display: flex;
+        justify-content: safe center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .btn_ad {
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 10px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .btn_bc {
+        background-color: yellowgreen;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .btn_none {
+        padding: 12px;
+        text-decoration: none;
+        border-radius: 5px;
+        background-color: gray;
+        color: white;
+        border: none;
+        cursor: no-drop;
+    }
+</style>

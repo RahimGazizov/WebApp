@@ -1,0 +1,147 @@
+﻿@model List<Практика.Models.Production>
+@{
+    var user = Context.Session.GetInt32("Role");
+}
+<div class="conteiner">
+    <h1>Производство продукции</h1>
+    <div class="action">
+        <a href="/Home/Index" class="btn_action">Вернуться</a>
+        @if (user == 2 || user == 3)
+        {
+            <a href="/Production/Insert" class="btn_action">Произвести продукт</a>
+        }
+        else
+        {
+            <a href="javascript:void(0)" class="btn_none">Произвести продукт</a>
+        }
+        <a href="/Product/Index" class="btn_action">Продукты</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Продукт</th>
+                <th>Количество</th>
+                <th>Дата</th>
+                <th>Сотрудник</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product</td>
+                    <td>@item.Count</td>
+                    <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                    <td>@item.Employee</td>
+                    <td>
+                        <div class="btn_action1">
+                            @if (user == 2 || user == 3)
+                            {
+                                <form method="post" action="/Production/Delete/@item.Id" onsubmit="return confirm('Вы уверены что хотите удалить?')">
+                                    <button class="btn_del">Удалить</button>
+                                </form>
+                                <form method="get" action="/Production/Edit/@item.Id">
+                                    <button class="btn_edit">Редоктировать</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form>
+                                    <button type="button" class="btn_none" disabled>Удалить</button>
+                                </form>
+                                <form>
+                                    <button type="button" class="btn_none" disabled>Редоктировать</button>
+                                </form>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    body {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        color: #4a4a4a;
+    }
+
+    .conteiner {
+        width: 80%;
+        margin: 80px auto;
+        background-color: #f0f2f5;
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+        padding: 15px;
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+        margin: 15px auto;
+    }
+
+        table th, table td {
+            border: 1px solid gray;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        table th {
+            background-color: lightgray;
+        }
+
+    .action {
+        display: flex;
+        justify-content: left;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .btn_action {
+        padding: 12px;
+        text-decoration: none;
+        background-color: azure;
+        border-radius: 7px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        color: black;
+    }
+
+    .btn_action1 {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn_del {
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 12px;
+    }
+
+    .btn_edit {
+        background-color: green;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 12px;
+    }
+
+    .btn_none {
+        padding: 12px;
+        text-decoration: none;
+        border-radius: 5px;
+        background-color: gray;
+        color: white;
+        border: none;
+        cursor: no-drop;
+    }
+</style>

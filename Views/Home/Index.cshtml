@@ -1,0 +1,148 @@
+﻿@{
+    Layout = "_Layout";  // Используем общий Layout
+    var user = Context.Session.GetInt32("Role");
+}
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: lightyellow;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        width: 50%;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .btn_primary {
+        color: white;
+        background-color: darkslategray;
+        border: none;
+        padding: 15px 0;
+        font-size: 18px;
+        border-radius: 5px;
+        text-decoration: none; /*убирает черточки например у ссылок снизу*/
+        cursor: pointer; /*делает курсор в виде руки*/
+        margin: 10px;
+        width: 25%;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn_primary:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: green;
+            color: white;
+        }
+
+        .btn_primary:hover {
+            background-color: green; /*при наведении на кнопку меняеться цвет*/
+        }
+
+    .btn_none {
+        color: white;
+        background-color: gray;
+        border: none;
+        padding: 15px 0;
+        font-size: 18px;
+        border-radius: 5px;
+        text-decoration: none; /*убирает черточки например у ссылок снизу*/
+        cursor: pointer; /*делает курсор в виде руки*/
+        margin: 10px;
+        width: 25%;
+        cursor: no-drop;
+    }
+
+    .options {
+        display: flex; /*делает кнопки в ряд*/
+        justify-content: safe center; /*сохраняет кнопки по центру*/
+        flex-wrap: nowrap; /*не переносит кнопки ссылки на новую строку*/
+    }
+</style>
+<div class="conteiner">
+    <h1 class="text">Кафе</h1>
+    <p>Выберите действие</p>
+    <div class="options">
+        @if (user == 2 || user == 3 || user == 11)
+        {
+
+            <a href="@Url.Action("Index", "Product")" class="btn_primary">Продукты</a>
+            <a href="@Url.Action("Index", "Materials")" class="btn_primary">Сырье</a>
+            <a href="@Url.Action("Index", "Ingredients")" class="btn_primary">Ингредиенты</a>
+        }
+        else
+        {
+            <a href="javascript:void(0)" class="btn_none">Продукты</a>
+            <a href="javascript:void(0)" class="btn_none">Сырье</a>
+            <a href="javascript:void(0)" class="btn_none">Ингредиенты</a>
+        }
+    </div>
+    <div class="options">
+        @if (user == 2 || user == 3 || user == 11)
+        {
+            <a href="@Url.Action("Index", "Production")" class="btn_primary">Производство</a>
+
+        }
+        else
+        {
+            <a href="javascript:void(0)" class="btn_none">Производство</a>
+        }
+        @if (user == 13 || user == 3 || user == 11)
+        {
+            <a href="@Url.Action("Index", "PuchaseMaterials")" class="btn_primary">Закупка сырья</a>
+            <a href="@Url.Action("Index", "SaleProducts")" class="btn_primary">Продажа</a>
+        }
+        else
+        {
+            <a href="javascript:void(0)" class="btn_none">Закупка сырья</a>
+            <a href="javascript:void(0)" class="btn_none">Продажа</a>
+        }
+    </div>
+    <div class="options">
+        @if (user == 11 || user == 3)
+        {
+            <a href="@Url.Action("Index", "Salary")" class="btn_primary">Зарплата</a>
+        }
+        else
+        {
+            <a href="javascript:void(0)" class="btn_none">Зарплата</a>
+        }
+        @if (user == 3 || user == 12 || user == 11)
+        {
+            <a href="@Url.Action("Index", "Credit")" class="btn_primary">Кредит</a>
+            <a href="@Url.Action("Index", "PayCredit")" class="btn_primary">Оплата за кредит</a>
+        }
+        else
+        {
+
+            <a href="javascript:void(0)" class="btn_none">Кредит</a>
+            <a href="javascript:void(0)" class="btn_none">Оплата за кредит</a>
+        }
+    </div>
+    <div class="options">
+        @if (user == 3 || user == 11)
+        {
+            <a href="@Url.Action("Index", "Employees")" class="btn_primary">Сотрудники</a>
+        }
+        else
+        {
+            <a href="javascript:void(0)" class="btn_none">Сотрудники</a>
+        }
+        <a href="@Url.Action("Index", "Authorization")" class="btn_primary">Выйти</a>
+        @if (user == 3 || user == 12 || user == 11)
+        {
+            <a href="@Url.Action("Index", "Budget")" class="btn_primary">Бюджет</a>
+        }
+        else
+        {
+            <a href="javascript:void(0)" class="btn_none">Сотрудники</a>
+        }
+    </div>
+</div>

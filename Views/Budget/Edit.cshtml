@@ -1,0 +1,84 @@
+﻿@model BudgetModel
+<div class="conteiner">
+    <h1>Редоктирование бюджета</h1>
+    <form method="post" asp-action="Edit">
+        <input type="hidden" asp-for="Id" />
+        <label>Бюджет</label>
+        <input type="text" asp-for="Budget" required />
+        <label>Бонус</label>
+        <input type="text" asp-for="Bonus" required />
+        <label>Процент</label>
+        <input type="text" asp-for="Percent" required />
+        <div class="action">
+            <button type="submit" class="btn_add">Обновить</button>
+            <a href="/Budget/Index" class="btn_back">Вернуться</a>
+        </div>
+    </form>
+</div>
+<style>
+    <style >
+    body {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background-color: aliceblue;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        width: 40%;
+        margin: 50px auto;
+        padding: 15px;
+        background-color: ghostwhite;
+        border-radius: 12px;
+        box-shadow: 0 6px 8px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    label, input {
+        margin-bottom: 15px;
+    }
+
+    input {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .btn_back {
+        padding: 12px;
+        text-decoration: none;
+        border-radius: 5px;
+        color: black;
+        background-color: #F0F0F0;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn_back:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+    .btn_add {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn_add:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    .action{
+        display:flex;
+        justify-content: center;
+        gap: 10px;
+    }
+</style>

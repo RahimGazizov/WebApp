@@ -1,0 +1,80 @@
+﻿@model PayCredit
+@{
+    var creditList = ViewBag.Credit as List<SelectListItem>;
+    // var dateValue = (Model != null && Model.Date != default) ? Model.Date.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd");
+}
+<div class="conteiner">
+    <h1>Оплата за кредит</h1>
+    <form method="post" action="Insert" id="autoSubmitForm">
+        <label>Кредит</label>
+        <select name="CreditId" id="creditSelect" onchange="trySubmit()">
+            <option value="">Выберите кредит</option>
+            @foreach (var item in creditList)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
+
+        <label>Дата</label>
+        <input type="date" name="Date" id="dateInput" onchange="trySubmit()" />
+
+        <script>
+            function trySubmit() {
+                var credit = document.getElementById('creditSelect').value;
+                var date = document.getElementById('dateInput').value;
+                if (credit !== "" && date !== "") {
+                    document.getElementById('autoSubmitForm').submit();
+                }
+            }
+        </script>
+    </form>
+
+</div>
+<style>
+    body {
+        font-family: Consolas;
+        background-color: aliceblue;
+        margin: 0;
+        padding: 0;
+    }
+
+    .conteiner {
+        width: 50%;
+        margin: 70px auto;
+        padding: 15px;
+        background-color: whitesmoke;
+        border-radius: 15px;
+        box-shadow: 0 8px 10px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    select, input {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+    }
+
+        select input, label {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+    .btn_add {
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn_add:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+</style>

@@ -33,5 +33,5 @@ SQL-скрипты для создания таблиц, хранимых про
 
 
 ## Автор
-Разработчик: Rahim Gazizov
+Разработчик: [Rahim Gazizov](https://github.com/RahimGazizov)
 Проект создан в рамках обучения с применением ASP.NET Core MVC и работы с SQL Server.
